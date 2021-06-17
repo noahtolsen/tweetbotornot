@@ -30,11 +30,11 @@
 #'
 #' }
 #' @export
-tweetbotornot <- function(x, fast = FALSE) UseMethod("tweetbotornot")
+tweetbotornot <- function(x, fast = TRUE) UseMethod("tweetbotornot")
 
 
 #' @export
-tweetbotornot.default <- function(x, fast = FALSE) {
+tweetbotornot.default <- function(x, fast = TRUE) {
   botornot(x, fast = fast)
 }
 
@@ -43,10 +43,10 @@ tweetbotornot.default <- function(x, fast = FALSE) {
 #' @rdname tweetbotornot
 #' @inheritParams tweetbotornot
 #' @export
-botornot <- function(x, fast = FALSE) UseMethod("botornot")
+botornot <- function(x, fast = TRUE) UseMethod("botornot")
 
 #' @export
-botornot.data.frame <- function(x, fast = FALSE) {
+botornot.data.frame <- function(x, fast = TRUE) {
   stopifnot(nrow(x) > 0, "user_id" %in% names(x))
   ## store screen and user names
   uu <- x[!duplicated(x$user_id), ]
@@ -80,13 +80,13 @@ botornot.data.frame <- function(x, fast = FALSE) {
 }
 
 #' @export
-botornot.factor <- function(x, fast = FALSE) {
+botornot.factor <- function(x, fast = TRUE) {
   x <- as.character(x)
   botornot(x, fast = fast)
 }
 
 #' @export
-botornot.character <- function(x, fast = FALSE) {
+botornot.character <- function(x, fast = TRUE) {
   x <- x[!is.na(x) & !duplicated(x)]
   if (fast)
   {
